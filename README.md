@@ -55,7 +55,7 @@ Modular structure for easy understanding and execution
 
 ER Diagram
 
-Output Samples
+📊 Output Samples
 
 Result Table 
 Class Summary	
