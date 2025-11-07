@@ -7,11 +7,11 @@
 
 --
 -- ================================================================
--- Table : students
+-- Table : student
 -- Stores basic details of each student
 -- ================================================================
 
-CREATE TABLE students (
+CREATE TABLE student (
     student_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,-- Unique identifier for each student (auto-incremented)
     name VARCHAR2(50),
     class VARCHAR2(10),
@@ -20,11 +20,11 @@ CREATE TABLE students (
 
 --
 -- ==================================================================
--- Table : Subjects
+-- Table : Subject
 -- Holds all subjects details
 -- ==================================================================
 
-CREATE TABLE subjects (
+CREATE TABLE subject (
     subject_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,-- Unique ID for each subject
     subject_name VARCHAR2(50),
     max_marks NUMBER(3)
@@ -45,11 +45,11 @@ CREATE TABLE marks (
 
 --
 -- ====================================================================
--- Table : results
+-- Table : result
 -- Stores calculated results for each student
 -- ====================================================================
 
-CREATE TABLE results (
+CREATE TABLE result (
     student_id NUMBER PRIMARY KEY REFERENCES student(student_id),-- One result record per student
     total_marks NUMBER(5),
     percentage NUMBER(5,2),
