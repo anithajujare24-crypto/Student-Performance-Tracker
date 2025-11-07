@@ -6,6 +6,14 @@
 --                 percentage, and grade for each student.
 -- ================================================================
 SET SERVEROUTPUT ON;
+--
+-- ================================================================
+-- Procedure loops through each student, calculates :
+-- Total marks obtained
+-- Total possible marks
+-- Percentage and grade
+-- Then, updates/inserts results accordingly
+-- ================================================================
 
 CREATE OR REPLACE PROCEDURE calculate_results AS
     v_student_id   NUMBER;
@@ -14,16 +22,17 @@ CREATE OR REPLACE PROCEDURE calculate_results AS
     v_percentage   NUMBER(6,2);
     v_grade        CHAR(1);
 BEGIN
+        -- Loop through all students
     FOR rec IN (SELECT student_id FROM student) LOOP
         v_student_id := rec.student_id;
 
-        -- total marks obtained by student
+        -- Calculates total marks obtained by students
         SELECT NVL(SUM(m.marks_obtained), 0)
         INTO v_total_marks
         FROM marks m
         WHERE m.student_id = v_student_id;
 
-        -- total maximum marks possible (based on subjects taken)
+        -- Calculates total maximum marks possible (based on subjects taken)
         SELECT NVL(SUM(s.max_marks), 0)
         INTO v_max_total
         FROM subject s
@@ -47,7 +56,9 @@ BEGIN
             v_grade := 'D';
         END IF;
 
-        -- merge into result table
+        -- merge results : update if record exists,
+        -- insert otherwise (ensures idempotent updates)
+                           
         MERGE INTO result r
         USING (SELECT v_student_id AS student_id FROM dual) s
         ON (r.student_id = s.student_id)
