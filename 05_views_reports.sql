@@ -30,3 +30,5 @@ SELECT s.class, COUNT(s.student_id) AS total_students,
 FROM student s JOIN result r ON s.student_id = r.student_id
 GROUP BY s.class;
 commit;
+select * from top_scorers;
+select * from class_summary;

@@ -80,3 +80,10 @@ BEGIN
     COMMIT;
 END;
 /
+-- Enable DBMS output
+SET SERVEROUTPUT ON;
+-- Run the procedure for one or more students
+BEGIN
+    calculate_results;
+    END;
+    /
